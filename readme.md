@@ -1,4 +1,4 @@
-#Web Monitoring Project
+# Web Monitoring Project
 ## Problem
 This program will notify users of a website of any changes to that website.  The program may be specifically tailored to a website, especially if interpage navigation is needed.  I will be using this program to notify myself of updates to the Appalachian Mountain Club's activities page.  This website does not offer email notifications of new postings.
 
