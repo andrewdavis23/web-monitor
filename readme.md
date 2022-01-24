@@ -11,7 +11,7 @@ This program will notify users of a website of any changes to that website.  The
 ## Notes
 ### smtplib
 - Messages are being sent through a gmail account
-- SMS nor MMS is being received to my phone through ###########@tmomail.net.  No error messages are shown.  Will try with another number.
+- SMS nor MMS is being received to my phone through ###########@tmomail.net.  No error messages are shown.  This isn't working via the program or manual email.  Will have to try with another number, otherwise it's a dead end.
 - Emails sent are blank unless all special characters are removed.
 ### web scrape
 - Previous issues using the scrapy module.  Had to create a seperate enviornment for it.
