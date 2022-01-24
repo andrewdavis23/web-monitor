@@ -3,7 +3,8 @@ import re
 from datetime import datetime
 
 server = smtplib.SMTP_SSL( 'smtp.gmail.com', 465 )
-server.login( 'Hike.Monitor@gmail.com', 'HikeMonitor@123' )
+########################### PASSWORD REDACTED!
+server.login( 'Hike.Monitor@gmail.com', '****************' )
 
 now = str(datetime.now())
 
