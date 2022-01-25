@@ -1,5 +1,4 @@
 import smtplib
-from datetime import datetime
 import requests
 import bs4
 
@@ -10,9 +9,13 @@ message = ''
 any_new = False
 new_count = 0
 
+# user name and password
+with open('C:\Python Programs\Web Monitor\UNAP.txt', 'r') as file:
+    unap = file.read().split('\n')
+
 # Gmail connection
 server = smtplib.SMTP_SSL( 'smtp.gmail.com', 465 )
-server.login( 'Hike.Monitor@gmail.com', 'HikeMonitor@123' )
+server.login( unap[0], unap[1] )
 
 # access previous webpage
 with open('C:\Python Programs\Web Monitor\OLDPAGE.txt', 'r') as file:
