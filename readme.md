@@ -1,6 +1,6 @@
-# Web Monitoring Project
+# Web Page Monitoring Project
 ## Problem
-This program will notify users of a website of any changes to a webpage on that site.  The program may be specifically tailored to a website, especially if interpage navigation is needed.  I will be using this program to notify myself of updates to my local hiking club's activities page.  This website does not offer email notifications of new postings.
+This program will notify users of a website of any changes to a web page on that site.  The program may be specifically tailored to a website, especially if interpage navigation is needed.  I will be using this program to notify myself of updates to my local hiking club's activities page.  This website does not offer email notifications of new postings.
 
 ## Solution Steps
 1) Program will run 24/7 on a rented server.
