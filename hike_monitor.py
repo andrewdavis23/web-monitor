@@ -12,7 +12,7 @@ new_count = 0
 
 # Gmail connection
 server = smtplib.SMTP_SSL( 'smtp.gmail.com', 465 )
-server.login( 'Hike.Monitor@gmail.com', 'HikeMonitor@123' )
+server.login( 'Hike.Monitor@gmail.com',************************)
 
 # access previous webpage
 with open('C:\Python Programs\Web Monitor\OLDPAGE.txt', 'r') as file:
