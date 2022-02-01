@@ -18,8 +18,8 @@ This program will notify users of a website of any changes to a web page on that
 - Previous issues using the scrapy module.  Had to create a seperate enviornment for it.
 - Using the requests module and beautiful soup
 ### web server
-- replit.com to host code and HTTP server
-- uptimerobot.com to keep REPL server from sleeping and monitor failure
+- [REPL IT](http://www.replit.com) to host code and HTTP server
+- [Up Time Robot](http://www.uptimerobot.com) to keep REPL server from sleeping and monitor failure
 ### unresolved issues
 - REPL has been randomly dropping modules, possibly after server is down for extended time
 - So far, only downtime is caused by failure of SMTP connection to gmail
