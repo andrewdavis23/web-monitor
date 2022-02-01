@@ -5,19 +5,24 @@ import os
 from keep_alive import keep_alive
 from time import sleep
 from random import randint
-from datetime import datetime
-
-new_data = {}
-message = ''
-new_count = 0
-psw = os.environ['Hike.Monitor@gmail.com']
-soup_list_new = ['placeholder']
-page_num = 1
+from datetime import datetime, timedelta
 
 # HTTP server
 keep_alive()
 
 while True:
+  new_data = {}
+  message = ''
+  psw = os.environ['Hike.Monitor@gmail.com']
+  soup_list_new = ['placeholder']
+  page_num = 1
+  a = datetime.today() - timedelta(hours=5)
+  now = a.strftime("%b %-d %-I.%M %p")
+
+  # access previous webpage
+  with open(r'OLD_HIKES.txt', 'r') as file:
+    old_hikes = file.read().split('\n')
+
   try:
       # Gmail connection
       server = smtplib.SMTP_SSL( 'smtp.gmail.com', 465 )
@@ -28,15 +33,11 @@ while True:
       server = smtplib.SMTP_SSL( 'smtp.gmail.com', 465 )
       server.login( 'Hike.Monitor@gmail.com', psw )
 
-  # access previous webpage
-  with open(r'OLD_HIKES.txt', 'r') as file:
-      old_hikes = file.read().split('\n')
-
   # while the page contents exist, pull from page and go to next page
-  print(' ++ Pulling Pages ++')
+  print(' ++ Pulling Pages {} ++'.format(now))
   while True:
       wp_new = requests.get('https://activities.outdoors.org/search?mode=tile&pg='+str(page_num)).text
-
+     
       # pull out piece of HTML that contains data
       soup_new = bs4.BeautifulSoup(wp_new, 'html.parser')
       soup_activities_new = soup_new.find(id='actdb-results')
@@ -65,43 +66,49 @@ while True:
 
       page_num += 1
 
-  print('{} hikes pulled from {} pages'.format(len(new_data),page_num))
+  print('{} hikes pulled from {} pages.'.format(len(new_data),page_num))
 
   new_hikes = set(new_data) - set(old_hikes)
 
   # create message from new_data FORMAT: new_data[title] = [dict_temp,link]
   # add filters here
   if len(new_hikes) > 0:
-      print('{} new hikes found',format(len(new_hikes)))
-      for h in new_hikes:
-          chunk = h
-          # for each dictionary of hike details (Status,Date(s),Activity,Offered by)
-          for i in new_data[h][0]:
-              chunk += '\n {} {} '.format(i.upper(),new_data[h][0][i])
-          chunk += '\n'+ new_data[h][1] +'\n'*2
-          chunk = chunk.replace(':','.')
-          message += chunk
+    print('{} new hikes found.'.format(len(new_hikes)))
+    for h in new_hikes:
+        chunk = h
+        # for each dictionary of hike details (Status,Date(s),Activity,Offered by)
+        for i in new_data[h][0]:
+            chunk += '\n {} {} '.format(i.upper(),new_data[h][0][i])
+        chunk += '\n'+ new_data[h][1] +'\n'*2
+        chunk = chunk.replace(':','.')
+        message += chunk
 
-      # replace cached webpage
-      with open(r'OLD_HIKES.txt', 'w') as file:
-          file.writelines('%s\n' % hike for hike in new_hikes)
+    # replace cached webpage
+    with open(r'OLD_HIKES.txt', 'w') as file:
+        file.writelines('%s\n' % hike for hike in list(new_data))
 
-      # subscriber list
-      with open(r'SUBS.txt', 'r') as file:
-          rec_emails = file.read().split('\n')
+    # subscriber list
+    with open(r'SUBS.txt', 'r') as file:
+        rec_emails = file.read().split('\n')
 
-      # add to email: subject and footnote
-      footnote = 'If you have any questions, comments, need to unsubscribe, reply to this email.'
-      
-      message = 'Subject: New Hike Posted! \n\n{}\n\n{}'.format(message,footnote)
+    # remove any non-ascii characters
+    e = message.encode('ascii',errors='ignore')
+    message = e.decode()
 
-      server.sendmail(from_addr='Hike.Monitor@gmail.com', to_addrs=rec_emails, msg=message)
-      server.quit()
+    # add to email: subject and footnote
+    footnote = 'If you have any questions, comments, need to unsubscribe, reply to this email.\n'
+
+    subject = '{} hikes found on {}'.format(len(new_hikes),now)
+    
+    message = 'Subject: {} \n\n{}\n\n{}'.format(subject,message,footnote)
+
+    server.sendmail(from_addr='Hike.Monitor@gmail.com', to_addrs=rec_emails, msg=message)
+    server.quit()
   else:
-      print('NO NEW HIKES '+str(datetime.now()))
+    print('No new hikes.')
 
   # run process at random intervals
   wait = randint(20,30)
   sleep(60*wait)
-  print('Waiting for {} minutes.'.format(wait))
+  print('Waiting for {} minutes...'.format(wait))
 
