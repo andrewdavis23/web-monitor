@@ -10,8 +10,7 @@ This program will notify users of a website of any changes to a web page on that
 
 ## Notes
 ### smtplib
-- Messages are being sent through a gmail account
-- SMS nor MMS is being received to my phone through ###########@tmomail.net.  No error messages are shown.  This isn't working via the program or manual email.  Will have to try with another number, otherwise it's a dead end.
+- SMS works when sent through email format: 'Subject: subject \n\nbody'
 - Emails sent are blank unless all ":" are removed. May be more characters too.
 - .sendmail returns error if any characters are not ASCII
 ### web scrape
