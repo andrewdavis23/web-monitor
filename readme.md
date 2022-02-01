@@ -22,3 +22,4 @@ This program will notify users of a website of any changes to a web page on that
 ### unresolved issues
 - REPL has been randomly dropping modules, possibly after server is down for extended time
 - So far, only downtime is caused by failure of SMTP connection to gmail
+- Can I add subscribers to SUBS.txt while the REPL is running?
