@@ -8,6 +8,9 @@ This program will notify users of a website of any changes to a web page on that
 3) Compare new web page to previous web page and store new text.
 4) Send the new text to a list of emails.
 
+## Solution
+https://replit.com/@andrewdavis23/Hike-Monitor#main.py
+
 ## Notes
 ### smtplib
 - SMS works when sent through email format: 'Subject: subject \n\nbody'
